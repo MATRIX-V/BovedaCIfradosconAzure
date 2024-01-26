@@ -26,16 +26,25 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @PageTitle("Inicio")
 @Route(value = "inicio", layout = MainLayout.class)
 @RouteAlias(value = "inicio", layout = MainLayout.class)
 @Uses(Icon.class)
 public class InicioView extends Composite<VerticalLayout> {
+
     private CredencialesService credencialesService;
+
+
     public InicioView(CredencialesService credencialesService) {
+
+        //credencialesService.CargarDatosIniciales(CredencialesService.id);
         H1 h1 = new H1();
         H2 h2 = new H2();
         VerticalLayout layoutColumn2 = new VerticalLayout();
@@ -61,10 +70,12 @@ public class InicioView extends Composite<VerticalLayout> {
         // Configurar las columnas del Grid
         grid.addColumn(Credenciales::getPlataforma).setHeader("Plataformas con credenciales guardadas");
         grid.setDataProvider(dataProvider);
-
+       // grid.getDataProvider().refreshAll();
         // Configurar datos de muestra en el Grid
         List<Credenciales> credenciales = CredencialesService.listaCredenciales;//Utils.Cred;
         grid.setItems(credenciales);
+
+
         layoutColumn2.setWidthFull();
         layoutColumn2.getStyle().set("flex-grow", "1");
         layoutRow.setWidthFull();
@@ -120,6 +131,7 @@ public class InicioView extends Composite<VerticalLayout> {
         layoutRow.add(BotonCrear);
         layoutRow.add(BotonBuscar);
         layoutRow.add(BotonEditar);
+
 
     }
 }

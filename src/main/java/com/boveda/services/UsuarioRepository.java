@@ -7,7 +7,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface UsuarioRepository extends MongoRepository<Usuario, String> {
-    public Usuario findByUsuario (String usuario);
-    public Usuario findByClave (String clave);
-
+    public List<Usuario> findByUsuario (String usuario);
 }

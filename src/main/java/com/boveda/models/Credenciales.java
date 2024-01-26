@@ -12,9 +12,8 @@ public class Credenciales {
 
     private String plataforma;
 
-    @Indexed (name="usuario", unique = true)
     private String usuario;
-
+    @Indexed (name="clave", unique = true)
     private String clave;
     private String idUsuario;
 

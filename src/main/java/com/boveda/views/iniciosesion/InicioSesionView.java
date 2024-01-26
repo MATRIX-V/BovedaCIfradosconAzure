@@ -68,6 +68,7 @@ public class InicioSesionView extends Composite<VerticalLayout> {
             // La lógica que se desea ejecutar cuando se presiona el botón
             UI.getCurrent().navigate(InicioView.class);
             CredencialesService.id=textFieldClave.getValue();
+            credencialesService.cargarDatosIniciales(CredencialesService.id);
         });
         layoutRow3.setHeightFull();
         layoutRow.setFlexGrow(1.0, layoutRow3);
