@@ -21,26 +21,21 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.theme.lumo.LumoUtility.Gap;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @PageTitle("Inicio Sesion")
 @Route(value = "inicio-sesion")
 @RouteAlias(value = "", layout = MainLayout.class)
 @Uses(Icon.class)
 public class InicioSesionView extends Composite<VerticalLayout> {
     private CredencialesService credencialesService;
-    private UsuarioService usuarioService;
 
     public InicioSesionView(CredencialesService credencialesService) {
 
         HorizontalLayout layoutRow = new HorizontalLayout();
         HorizontalLayout layoutRow2 = new HorizontalLayout();
         VerticalLayout layoutColumn2 = new VerticalLayout();
-        TextField textFieldUsuario = new TextField();
+        TextField textField = new TextField();
         TextField textFieldClave = new TextField();
         Button BotonIniciar = new Button();
-        Button BotonCrear = new Button();
         HorizontalLayout layoutRow3 = new HorizontalLayout();
         HorizontalLayout layoutRow4 = new HorizontalLayout();
         getContent().setWidth("100%");
@@ -59,42 +54,21 @@ public class InicioSesionView extends Composite<VerticalLayout> {
         layoutRow.setFlexGrow(1.0, layoutColumn2);
         layoutColumn2.setWidth("100%");
         layoutColumn2.getStyle().set("flex-grow", "1");
-        textFieldUsuario.setLabel("Usuario maestro");
-        layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, textFieldUsuario);
-        textFieldUsuario.setWidth("min-content");
-        textFieldClave.setLabel("Contraseña maestra");
+        textField.setLabel("Usuario");
+        layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, textField);
+        textField.setWidth("min-content");
+        textFieldClave.setLabel("Contraseña");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, textFieldClave);
         textFieldClave.setWidth("min-content");
         BotonIniciar.setText("Entrar");
-        BotonCrear.setText("Crear");
         layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, BotonIniciar);
-        layoutColumn2.setAlignSelf(FlexComponent.Alignment.CENTER, BotonCrear);
         BotonIniciar.setWidth("min-content");
         BotonIniciar.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         BotonIniciar.addClickListener(event -> {
             // La lógica que se desea ejecutar cuando se presiona el botón
-            String usuarioMaestro = textFieldUsuario.getValue();
-            String claveMaestra = textFieldClave.getValue();
-
-            if (usuarioService.validarUsuarioMaestro(usuarioMaestro, claveMaestra)) {
-                // Credenciales maestras válidas, redirige a la vista de Inicio
-                UI.getCurrent().navigate(InicioView.class);
-                credencialesService.RecargarCredenciales(CredencialesService.id);
-                //usuarioService.cargarDatosIniciales(CredencialesService.id);
-            } else {
-                Notification.show("Credenciales maestras incorrectas");
-            }
-
-        });
-        BotonCrear.addClickListener(event -> {
-            String usuarioMaestro = textFieldUsuario.getValue();
-            String claveMaestra = textFieldClave.getValue();
-            Usuario usuario = new Usuario(usuarioMaestro, claveMaestra);
-            usuarioService.CrearUsuario(usuario);
-            CredencialesService.id = usuario.getId();
-            credencialesService.RecargarCredenciales(CredencialesService.id);
             UI.getCurrent().navigate(InicioView.class);
-                });
+            CredencialesService.id=textFieldClave.getValue();
+        });
         layoutRow3.setHeightFull();
         layoutRow.setFlexGrow(1.0, layoutRow3);
         layoutRow3.addClassName(Gap.MEDIUM);
@@ -108,12 +82,9 @@ public class InicioSesionView extends Composite<VerticalLayout> {
         getContent().add(layoutRow);
         layoutRow.add(layoutRow2);
         layoutRow.add(layoutColumn2);
-        layoutColumn2.add(textFieldUsuario);
+        layoutColumn2.add(textField);
         layoutColumn2.add(textFieldClave);
         layoutColumn2.add(BotonIniciar);
-        layoutColumn2.add(BotonCrear);
-
-
         layoutRow.add(layoutRow3);
         getContent().add(layoutRow4);
     }

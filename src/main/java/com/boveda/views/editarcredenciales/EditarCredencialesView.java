@@ -122,15 +122,9 @@ public class EditarCredencialesView extends Composite<VerticalLayout> {
             Credenciales credenciales1;
             String plataforma = plataformaTextField.getValue();
             credenciales1 = credencialesService.buscarCredenciales(plataforma, CredencialesService.id);
-
-            if (credenciales1!=null){
-                nuevoUsuarioTextField.setValue(credenciales1.getUsuario());
-                String clavedesencriptada=encriptar.desencriptarAES(credenciales1.getClave());
-                nuevaClaveTextField.setValue(clavedesencriptada);
-            }
-            else {
-                Notification.show("La plataforma no existe en la bóveda");
-            }
+            nuevoUsuarioTextField.setValue(credenciales1.getUsuario());
+             String clavedesencriptada=encriptar.desencriptarAES(credenciales1.getClave());
+            nuevaClaveTextField.setValue(clavedesencriptada);
         });
 
         // Agregar la lógica al botón de guardar
